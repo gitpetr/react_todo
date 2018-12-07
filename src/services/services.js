@@ -22,4 +22,14 @@ export default class Service {
     const res = await this.getResource('/todos')
     return res.data
   }
+
+  toggleDone = async (id, params) => {
+    const res = await this.postResource(`/tdone/${id}`, params)
+    return res.data
+  }
+
+  toggleImportant = async (id, params) => {
+    const res = await this.postResource(`/tinportant/${id}`, params)
+    return res.data
+  }
 }
