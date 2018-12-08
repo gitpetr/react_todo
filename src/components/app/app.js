@@ -25,15 +25,15 @@ class App extends Component {
       })
   }
 
-  toggleDone = (id, done) => {
-    this.service.toggleDone(id, done)
+  toggleDone = (id) => {
+    this.service.toggleDone(id)
       .catch(function (error) {
         console.log('ОШИБКА', error);
       })
   }
 
-  toggleImportant = (id, important) => {
-    this.service.toggleImportant(id, important)
+  toggleImportant = (id) => {
+    this.service.toggleImportant(id)
       .catch(function (error) {
         console.log('ОШИБКА', error);
       })
@@ -51,8 +51,8 @@ class App extends Component {
 
         <TodoList 
           todos={this.state.todoData} 
-          toggleDone={(id, done) => this.toggleDone(id, done)}
-          toggleImportant={(id, important) => this.toggleImportant(id, important)}
+          toggleDone={(id) => this.toggleDone(id)}
+          toggleImportant={(id) => this.toggleImportant(id)}
         />
       </div>
     )

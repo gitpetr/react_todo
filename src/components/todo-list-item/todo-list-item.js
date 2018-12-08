@@ -13,7 +13,7 @@ class TodoListItem extends Component {
         done: !state.done
       }
     })
-    this.props.toggleDone(this.state.done)
+    this.props.toggleDone()
   }
 
   onMarkImportant = () => {
@@ -22,7 +22,7 @@ class TodoListItem extends Component {
         important: !state.important
       }
     })
-    this.props.toggleImportant(this.state.important)
+    this.props.toggleImportant()
   }
 
   render () {
