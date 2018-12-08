@@ -26,6 +26,13 @@ export default class Service {
     return await res;
   }
 
+  deleteResource = async (url) => {
+    const res = await axios.delete(url);
+    if (res.statusText !== "OK") {
+      throw new (Error)(`Could not fetch ${url}, reseived ${res.statusText}`)
+    }
+  }
+
   todos = async () => {
     const res = await this.getResource('/todos')
     return res.data
@@ -39,5 +46,9 @@ export default class Service {
   toggleImportant = async (id) => {
     const res = await this.putResource(`/tinportant/${id}`)
     return res.data
+  }
+
+  deleteItem = async (id) => {
+    await this.deleteResource(`/todos/${id}`)
   }
 }

@@ -39,6 +39,24 @@ class App extends Component {
       })
   }
 
+  deleteItem(id){ 
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id)
+    
+      const newArray = [
+        ...todoData.slice(0, idx),
+        ...todoData.slice(idx +1)
+      ]
+
+      return { todoData: newArray }
+    })
+    
+    this.service.deleteItem(id)
+      .catch(function (error) {
+        console.log('ОШИБКА', error);
+      })
+  }
+
   render() {
 
     return (
@@ -53,6 +71,7 @@ class App extends Component {
           todos={this.state.todoData} 
           toggleDone={(id) => this.toggleDone(id)}
           toggleImportant={(id) => this.toggleImportant(id)}
+          onDeleted={(id) => this.deleteItem(id)}
         />
       </div>
     )
