@@ -10,8 +10,10 @@ import './app.css';
 
 class App extends Component {
   service = new Service()
+
   state = {
-    todoData: []
+    todoData: [],
+    term: ''
   }
 
   loadData = (todoData) => {
@@ -110,19 +112,38 @@ class App extends Component {
     });
   }
 
+  onSearchChange = (term) => {
+    this.setState({ term })
+  }
+
+  search(items, term) {
+    if (term.length === 0) {
+      return items
+    }
+
+    return items.filter((item) => {
+      return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1
+    })
+  }
+
   render() {
-    const doneCount = this.state.todoData.filter((el) => el.done).length
-    const todoCount = this.state.todoData.length - doneCount
+    const { todoData, term } = this.state
+    const visibleItems = this.search(todoData, term)
+    const doneCount = todoData.filter((el) => el.done).length
+    const todoCount = todoData.length - doneCount
+
     return (
       <div className="todo-app">
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel
+          onSearchChange={this.onSearchChange}
+          />
           <ItemStatusFilter />
         </div>
 
         <TodoList 
-          todos={this.state.todoData} 
+          todos={visibleItems}
           toggleDone={(id) => this.toggleDone(id)}
           toggleImportant={(id) => this.toggleImportant(id)}
           onDeleted={(id) => this.deleteItem(id)}
