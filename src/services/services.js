@@ -51,4 +51,9 @@ export default class Service {
   deleteItem = async (id) => {
     await this.deleteResource(`/todos/${id}`)
   }
+
+  addItem = async (text) => {
+    const res = await this.postResource('/todos', { label: text })
+    return res.data
+  }
 }
