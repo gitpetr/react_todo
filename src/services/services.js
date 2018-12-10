@@ -18,8 +18,26 @@ export default class Service {
     return await res;
   }
 
+  putResource = async (url, params = {}) => {
+    const res = await axios.put(url, params);
+    if (res.statusText !== "OK") {
+      throw new (Error)(`Could not fetch ${url}, reseived ${res.statusText}`)
+    }
+    return await res;
+  }
+
   todos = async () => {
     const res = await this.getResource('/todos')
+    return res.data
+  }
+
+  toggleDone = async (id) => {
+    const res = await this.putResource(`/tdone/${id}`)
+    return res.data
+  }
+
+  toggleImportant = async (id) => {
+    const res = await this.putResource(`/tinportant/${id}`)
     return res.data
   }
 }

@@ -23,7 +23,22 @@ class App extends Component {
       .catch(function (error) {
         console.log('ОШИБКА', error);
       })
-}
+  }
+
+  toggleDone = (id) => {
+    this.service.toggleDone(id)
+      .catch(function (error) {
+        console.log('ОШИБКА', error);
+      })
+  }
+
+  toggleImportant = (id) => {
+    this.service.toggleImportant(id)
+      .catch(function (error) {
+        console.log('ОШИБКА', error);
+      })
+  }
+
   render() {
 
     return (
@@ -34,7 +49,11 @@ class App extends Component {
           <ItemStatusFilter />
         </div>
 
-        <TodoList todos={this.state.todoData} />
+        <TodoList 
+          todos={this.state.todoData} 
+          toggleDone={(id) => this.toggleDone(id)}
+          toggleImportant={(id) => this.toggleImportant(id)}
+        />
       </div>
     )
   }
